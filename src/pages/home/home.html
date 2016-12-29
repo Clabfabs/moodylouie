@@ -7,9 +7,16 @@
 <ion-content padding>
   <h1>Speed: {{speed}}</h1>
   <ion-item>
-    <ion-range [(ngModel)]="speed" pin="true" min="-50" max="50" step="10">
+    <ion-range [(ngModel)]="speed" (ngModelChange)="changeSpeed($event)" pin="true" min="-50" max="50" step="10">
       <ion-icon range-left small name="md-speedometer"></ion-icon>
       <ion-icon range-right large name="md-speedometer"></ion-icon>
     </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-card>
+      <ion-card-content>
+        <img src="{{imgurl}}" alt="">
+      </ion-card-content>
+    </ion-card>
   </ion-item>
 </ion-content>
