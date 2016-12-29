@@ -7,9 +7,10 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  private speed: number;
 
   constructor(public navCtrl: NavController) {
-
+    this.speed = 0;
   }
 
 }
