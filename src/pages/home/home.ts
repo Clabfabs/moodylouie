@@ -66,7 +66,7 @@ export class HomePage {
         else newSpeed = Math.min(that.speed + Math.round(Math.random() * 40 - 20), 50);
         that.speed = newSpeed;
         that.changeSpeed(that.speed);
-      }, 5000);
+      }, 3000);
       this.random = true;
     }
   }

@@ -13,7 +13,7 @@ export class SpeedService {
     private url: string;
 
     constructor(public http: Http) {
-        this.url = 'http://louie.local?speed='
+        this.url = 'http://louie.local/custom?speed='
     }
 
     setSpeed(speed) {
