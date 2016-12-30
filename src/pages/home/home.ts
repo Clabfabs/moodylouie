@@ -6,8 +6,7 @@ import {Platform} from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html',
-  providers: [SpeedService]
+  templateUrl: 'home.html'
 })
 export class HomePage {
   private speed: number;
@@ -18,7 +17,7 @@ export class HomePage {
   private minimum: number;
   private maximum: number;
 
-  constructor(public navCtrl: NavController, public speedService: SpeedService, public platform: Platform, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, private speedService: SpeedService, public platform: Platform, public toastCtrl: ToastController) {
     this.speed = 0;
     this.log = [];
     this.random = false;

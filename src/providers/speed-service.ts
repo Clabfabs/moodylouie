@@ -10,26 +10,35 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class SpeedService {
-    private url: string;
+  private ip: string;
 
-    constructor(public http: Http) {
-        this.url = 'http://louie.local/custom?speed='
-    }
+  constructor(public http: Http) {
+    this.ip = 'louie.local';
+  }
 
-    setSpeed(speed) {
-        return new Promise((resolve, reject) => {
-            this.http.get(this.url + speed)
-                .map(res => res.json())
-                .subscribe(
-                    function onSuccess(response) {
-                      resolve(response)
-                    },
-                    function onError(error) {
-                      reject(error)
-                    },
-                    function onFinish() {}
-                )
-        })
-    }
+  setSpeed(speed) {
+    console.log(this.ip);
+    return new Promise((resolve, reject) => {
+      let url = 'http://' + this.ip + '/custom?speed=' + speed;
+      console.log('URL: ' + url);
+      this.http.get(url)
+        .map(res => res.json())
+        .subscribe(
+          function onSuccess(response) {
+            resolve(response)
+          },
+          function onError(error) {
+            reject(error)
+          },
+          function onFinish() {
+          }
+        )
+    })
+  }
+
+  setIP(ip) {
+    console.log('Set IP to ' + ip);
+    this.ip = ip;
+  }
 
 }

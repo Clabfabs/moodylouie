@@ -7,7 +7,11 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item>
-    Settings? What would you change anyway? :O
-  </ion-item>
+  <form (ngSubmit)="setIP()">
+    <ion-item>
+      <ion-label>IP</ion-label>
+      <ion-input type="text" [(ngModel)]="ip" name="ip"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Set IP</button>
+  </form>
 </ion-content>

@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import {Component} from '@angular/core';
+import {Platform} from 'ionic-angular';
+import {StatusBar, Splashscreen} from 'ionic-native';
 
-import { TabsPage } from '../pages/tabs/tabs';
+import {TabsPage} from '../pages/tabs/tabs';
+import {SpeedService} from "../providers/speed-service";
 
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [SpeedService]
 })
 export class MyApp {
   rootPage = TabsPage;
