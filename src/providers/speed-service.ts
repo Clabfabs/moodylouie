@@ -17,7 +17,6 @@ export class SpeedService {
   }
 
   setSpeed(speed) {
-    console.log(this.ip);
     return new Promise((resolve, reject) => {
       let url = 'http://' + this.ip + '/custom?speed=' + speed;
       console.log('URL: ' + url);

@@ -36,17 +36,17 @@ export class HomePage {
       .catch(error => {
         console.log('Error: ', error);
         this.log.unshift('Error: ' + error.toString());
-        // if (this.random) {
-        //   if (this.interval) {
-        //     clearInterval(this.interval);
-        //     console.log("cleared interval");
-        //   }
-        //   this.random = false;
-        // }
+        if (this.random) {
+          if (this.interval) {
+            clearInterval(this.interval);
+            console.log("cleared interval");
+          }
+          this.random = false;
+        }
         let toast = this.toastCtrl.create({
           message: 'Error: ' + error,
           duration: 3000,
-          position: 'bottom'
+          position: 'middle'
         });
         toast.present()
           .catch(err => console.log(err));
