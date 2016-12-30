@@ -24,8 +24,8 @@
   </ion-item>
 
   <ion-item no-lines no-padding>
-    <ion-range [disabled]="random" [(ngModel)]="speed" (ngModelChange)="changeSpeed($event)" pin="true" min="-50"
-               max="50" step="10">
+    <ion-range [disabled]="random" [(ngModel)]="speed" (ngModelChange)="changeSpeed($event)" pin="true" [min]="minimum"
+               [max]="maximum" step="10">
       <ion-icon range-left small name="md-speedometer"></ion-icon>
       <ion-icon range-right large name="md-speedometer"></ion-icon>
     </ion-range>
