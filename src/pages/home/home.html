@@ -25,7 +25,7 @@
 
   <ion-item no-lines no-padding>
     <ion-range [disabled]="random" [(ngModel)]="speed" (ngModelChange)="changeSpeed($event)" pin="true" [min]="speedService.getMin()"
-               [max]="speedService.getCurrentMax()" [step]="slideSteps">
+               [max]="speedService.getCurrentMax()" [step]="speedService.getCurrentMax() * 0.05">
       <ion-icon range-left small name="md-speedometer"></ion-icon>
       <ion-icon range-right large name="md-speedometer"></ion-icon>
     </ion-range>

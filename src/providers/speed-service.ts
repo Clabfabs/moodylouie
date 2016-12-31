@@ -63,11 +63,11 @@ export class SpeedService {
 
   setCurrentMax(max) {
     return new Promise((resolve, reject) => {
-      if (0 <= max && max <= this.step * 2 && max <= this.max) {
+      if (10 <= max && max >= this.step * 2 && max <= this.max) {
         this.currentMax = max;
         return resolve(this.currentMax);
       }
-      return reject(new Error('Max must be between 0 and Step * 2 (' + this.step*2 + ') and less than ' + this.max + '.'));
+      return reject(new Error('Max must be between 10 and Step * 2 (' + this.step*2 + ') and less than ' + this.max + '.'));
     })
   }
 

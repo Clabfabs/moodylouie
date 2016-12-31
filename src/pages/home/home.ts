@@ -14,14 +14,12 @@ export class HomePage {
   private random: boolean;
   private interval: any;
   private showLog: boolean;
-  private slideSteps: number;
 
   constructor(public navCtrl: NavController, private speedService: SpeedService, public platform: Platform, public toastCtrl: ToastController) {
     this.speed = 0;
     this.log = [];
     this.random = false;
     this.showLog = false;
-    this.slideSteps = Math.round(speedService.getMax() * 0.05);
   }
 
   changeSpeed(speed) {
@@ -61,22 +59,15 @@ export class HomePage {
       this.random = false;
     } else {
       let that = this;
-      let counter = 0;
       this.interval = setInterval(function () {
         let newSpeed = that.speed;
-        if (counter > 0) {
-          counter %= 3;
-        }
-        else if (newSpeed < 0) newSpeed = Math.round(Math.random() * that.speedService.getCurrentMax() * 0.2);
+        if (newSpeed < 0) newSpeed = Math.round(Math.random() * that.speedService.getCurrentMax() * 0.2);
         else if (newSpeed > that.speedService.getCurrentMax() * 0.8) {
-          newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep() * 1.5), that.speedService.getMax());
+          newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep() * 1.5), that.speedService.getCurrentMax());
         } else if (newSpeed < that.speedService.getCurrentMax() * 0.2) {
-          newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep() * 0.75), that.speedService.getMax());
-        } else newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep()), that.speedService.getMax());
-        if (newSpeed < 0) {
-          newSpeed = that.speedService.getMin();
-          counter++;
-        }
+          newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep() * 0.75), that.speedService.getCurrentMax());
+        } else newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep()), that.speedService.getCurrentMax());
+        if (newSpeed < 0) newSpeed = that.speedService.getMin();
         that.speed = newSpeed;
         that.changeSpeed(that.speed);
       }, that.speedService.getRandomTimeInterval());
