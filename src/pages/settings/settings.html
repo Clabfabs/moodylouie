@@ -14,4 +14,11 @@
     </ion-item>
     <button ion-button type="submit" block>Set IP</button>
   </form>
+  <form (ngSubmit)="setRandomStep()">
+    <ion-item>
+      <ion-label>Random step</ion-label>
+      <ion-input type="text" [(ngModel)]="randomStep" name="randomStep"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Set random step</button>
+  </form>
 </ion-content>

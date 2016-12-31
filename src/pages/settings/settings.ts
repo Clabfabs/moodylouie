@@ -9,9 +9,11 @@ import {SpeedService} from "../../providers/speed-service";
 })
 export class SettingsPage {
   private ip: string;
+  private randomStep: number;
 
   constructor(public navCtrl: NavController, private speedService: SpeedService, private toastCtrl: ToastController) {
     this.ip = 'local.louie';
+    this.randomStep = speedService.getStep();
   }
 
   setIP() {
@@ -23,5 +25,27 @@ export class SettingsPage {
     });
     toast.present()
       .catch(err => console.log(err));
+  }
+
+  setRandomStep() {
+    this.speedService.setStep(this.randomStep)
+      .then(step => {
+        let toast = this.toastCtrl.create({
+          message: 'Random step set to ' + step,
+          duration: 3000,
+          position: 'middle'
+        });
+        toast.present()
+          .catch(err => console.log(err));
+      })
+      .catch(err => {
+        let toast = this.toastCtrl.create({
+          message: err,
+          duration: 3000,
+          position: 'middle'
+        });
+        toast.present()
+          .catch(err => console.log(err));
+      });
   }
 }

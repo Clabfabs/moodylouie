@@ -11,9 +11,15 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SpeedService {
   private ip: string;
+  private step: number;
+  private min: number;
+  private max: number;
 
   constructor(public http: Http) {
     this.ip = 'louie.local';
+    this.step = 20;
+    this.min = -30;
+    this.max = 100;
   }
 
   setSpeed(speed) {
@@ -21,7 +27,6 @@ export class SpeedService {
       let url = 'http://' + this.ip + '/custom?speed=' + speed;
       console.log('URL: ' + url);
       this.http.get(url)
-        .map(res => res.json())
         .subscribe(
           function onSuccess(response) {
             resolve(response)
@@ -38,6 +43,28 @@ export class SpeedService {
   setIP(ip) {
     console.log('Set IP to ' + ip);
     this.ip = ip;
+  }
+
+  setStep(step) {
+    return new Promise((resolve, reject) => {
+      if (0 <= step && step <= this.max * 0.5) {
+        this.step = step;
+        return resolve(this.step);
+      }
+      return reject(new Error('Step must be between 0 and ' + this.max*0.5));
+    })
+  }
+
+  getMin() {
+    return this.min;
+  }
+
+  getMax() {
+    return this.max;
+  }
+
+  getStep() {
+    return this.step;
   }
 
 }

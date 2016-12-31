@@ -14,16 +14,14 @@ export class HomePage {
   private random: boolean;
   private interval: any;
   private showLog: boolean;
-  private minimum: number;
-  private maximum: number;
+  private slideSteps: number;
 
   constructor(public navCtrl: NavController, private speedService: SpeedService, public platform: Platform, public toastCtrl: ToastController) {
     this.speed = 0;
     this.log = [];
     this.random = false;
     this.showLog = false;
-    this.minimum = 0;
-    this.maximum = 100;
+    this.slideSteps = Math.round(speedService.getMax() * 0.05);
   }
 
   changeSpeed(speed) {
@@ -31,7 +29,7 @@ export class HomePage {
     this.speedService.setSpeed(speed)
       .then(response => {
         console.log('response', response);
-        this.log.unshift('Success: ' + response.toString());
+        // this.log.unshift('Success: ' + response.toString());
       })
       .catch(error => {
         console.log('Error: ', error);
@@ -65,15 +63,16 @@ export class HomePage {
       let that = this;
       this.interval = setInterval(function () {
         let newSpeed = that.speed;
-        if (newSpeed < 0) newSpeed = Math.round(Math.random() * that.maximum * 0.2);
-        else if (newSpeed > that.maximum * 0.8) {
-          newSpeed = Math.min(that.speed + Math.round(Math.random() * that.maximum * 0.3 - that.maximum * 0.2), that.maximum);
-        } else if (newSpeed < that.maximum * 0.2) {
-          newSpeed = Math.min(that.speed + Math.round(Math.random() * that.maximum * 0.3 - that.maximum * 0.1), that.maximum);
-        } else newSpeed = Math.min(that.speed + Math.round(Math.random() * that.maximum * 0.3 - that.maximum * 0.15), that.maximum);
+        if (newSpeed < 0) newSpeed = Math.round(Math.random() * that.speedService.getMax() * 0.2);
+        else if (newSpeed > that.speedService.getMax() * 0.8) {
+          newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep() * 1.5), that.speedService.getMax());
+        } else if (newSpeed < that.speedService.getMax() * 0.2) {
+          newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep() * 0.75), that.speedService.getMax());
+        } else newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep()), that.speedService.getMax());
+        if (newSpeed < 0) newSpeed = Math.min(newSpeed - that.speedService.getMax() * 0.3, that.speedService.getMax() * -1);
         that.speed = newSpeed;
         that.changeSpeed(that.speed);
-      }, 3000);
+      }, 1000);
       this.random = true;
     }
   }
