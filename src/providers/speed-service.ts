@@ -13,13 +13,19 @@ export class SpeedService {
   private ip: string;
   private step: number;
   private min: number;
+  private currentMin: number;
   private max: number;
+  private currentMax: number;
+  private randomTimeInterval: number;
 
   constructor(public http: Http) {
     this.ip = 'louie.local';
     this.step = 20;
     this.min = -30;
+    this.currentMin = -30;
+    this.currentMax = 100;
     this.max = 100;
+    this.randomTimeInterval = 1000;
   }
 
   setSpeed(speed) {
@@ -55,12 +61,36 @@ export class SpeedService {
     })
   }
 
+  setCurrentMax(max) {
+    return new Promise((resolve, reject) => {
+      if (0 <= max && max <= this.step * 2 && max <= this.max) {
+        this.currentMax = max;
+        return resolve(this.currentMax);
+      }
+      return reject(new Error('Max must be between 0 and Step * 2 (' + this.step*2 + ') and less than ' + this.max + '.'));
+    })
+  }
+
+  setRandomTimeInterval(interval) {
+    return new Promise((resolve, reject) => {
+      if (0 <= interval) {
+        this.randomTimeInterval = interval;
+        return resolve(this.randomTimeInterval);
+      }
+      return reject(new Error('Random time interval (in ms) must be a positive number'));
+    })
+  }
+
+  getRandomTimeInterval() {
+    return this.randomTimeInterval;
+  }
+
   getMin() {
     return this.min;
   }
 
-  getMax() {
-    return this.max;
+  getCurrentMax() {
+    return this.currentMax;
   }
 
   getStep() {

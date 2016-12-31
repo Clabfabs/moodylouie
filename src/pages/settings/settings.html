@@ -14,6 +14,13 @@
     </ion-item>
     <button ion-button type="submit" block>Set IP</button>
   </form>
+  <form (ngSubmit)="setMax()">
+    <ion-item>
+      <ion-label>Max Speed</ion-label>
+      <ion-input type="text" [(ngModel)]="maxSpeed" name="Max"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Set maximum speed</button>
+  </form>
   <form (ngSubmit)="setRandomStep()">
     <ion-item>
       <ion-label>Random step</ion-label>
@@ -21,4 +28,12 @@
     </ion-item>
     <button ion-button type="submit" block>Set random step</button>
   </form>
+  <form (ngSubmit)="setRandomTimeInterval()">
+    <ion-item>
+      <ion-label>Random time interval (ms)</ion-label>
+      <ion-input type="text" [(ngModel)]="randomTimeInterval" name="randomTimeInterval"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Set random time interval</button>
+  </form>
+
 </ion-content>

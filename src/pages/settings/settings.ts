@@ -10,9 +10,11 @@ import {SpeedService} from "../../providers/speed-service";
 export class SettingsPage {
   private ip: string;
   private randomStep: number;
+  private maxSpeed: number;
 
   constructor(public navCtrl: NavController, private speedService: SpeedService, private toastCtrl: ToastController) {
     this.ip = 'local.louie';
+    this.maxSpeed = speedService.getCurrentMax();
     this.randomStep = speedService.getStep();
   }
 
@@ -47,5 +49,27 @@ export class SettingsPage {
         toast.present()
           .catch(err => console.log(err));
       });
+  }
+
+  setMax() {
+    this.speedService.setCurrentMax(this.maxSpeed)
+      .then(newMax => {
+        let toast = this.toastCtrl.create({
+          message: 'MaxSpeed set to ' + newMax,
+          duration: 3000,
+          position: 'middle'
+        });
+        toast.present()
+          .catch(err => console.log(err));
+      })
+      .catch(err => {
+        let toast = this.toastCtrl.create({
+          message: err,
+          duration: 3000,
+          position: 'middle'
+        });
+        toast.present()
+          .catch(err => console.log(err));
+      })
   }
 }

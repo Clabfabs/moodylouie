@@ -61,18 +61,25 @@ export class HomePage {
       this.random = false;
     } else {
       let that = this;
+      let counter = 0;
       this.interval = setInterval(function () {
         let newSpeed = that.speed;
-        if (newSpeed < 0) newSpeed = Math.round(Math.random() * that.speedService.getMax() * 0.2);
-        else if (newSpeed > that.speedService.getMax() * 0.8) {
+        if (counter > 0) {
+          counter %= 3;
+        }
+        else if (newSpeed < 0) newSpeed = Math.round(Math.random() * that.speedService.getCurrentMax() * 0.2);
+        else if (newSpeed > that.speedService.getCurrentMax() * 0.8) {
           newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep() * 1.5), that.speedService.getMax());
-        } else if (newSpeed < that.speedService.getMax() * 0.2) {
+        } else if (newSpeed < that.speedService.getCurrentMax() * 0.2) {
           newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep() * 0.75), that.speedService.getMax());
         } else newSpeed = Math.min(that.speed + Math.round(Math.random() * that.speedService.getStep() * 2 - that.speedService.getStep()), that.speedService.getMax());
-        if (newSpeed < 0) newSpeed = Math.min(newSpeed - that.speedService.getMax() * 0.3, that.speedService.getMax() * -1);
+        if (newSpeed < 0) {
+          newSpeed = that.speedService.getMin();
+          counter++;
+        }
         that.speed = newSpeed;
         that.changeSpeed(that.speed);
-      }, 1000);
+      }, that.speedService.getRandomTimeInterval());
       this.random = true;
     }
   }
